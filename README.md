@@ -1,4 +1,5 @@
-# PaperRTM is a M5Paper sketch to display tasks on your Remember the Milk.
+# PaperRTM
+PaperRTM is a M5Paper sketch to display tasks on your Remember the Milk.
 
 ## How to run
 1. This sketch requires M5Paper and microSD card (<= 16GB)

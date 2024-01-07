@@ -1,0 +1,11 @@
+SSID:YOUR_SSID_OF_WIFI
+PASS:YOUR_PASSWORD_OF_WIFI
+fontName:/font.ttf
+fontSize:32
+smallFontSize:26
+pemFileName:/pemFile.pem
+timezone:9.0
+RTM_apiKey:YOUR_API_KEY
+RTM_sharedSecret:YOUR_SHARED_SECRET
+filter:status:incomplete
+// Comments

@@ -46,16 +46,12 @@ int RTMRequest::getRequest()
         dateString = httpClient.header("Date");
         WiFiClient *stream = httpClient.getStreamPtr();
         if (httpClient.connected()) {
+            String body = "";
             while(stream->available()) {
-                String line = stream->readStringUntil('\n');
-                line.trim();
-                Serial.println(line);
-                if (line.startsWith("<?xml"))
-                {
-                    xmlString = line;
-                    xmlScanner = NJScanner(xmlString);
-                }
+                body += stream->readStringUntil('\n');
             }
+            xmlString = body;
+            xmlScanner = NJScanner(xmlString);
         }
     }
     httpClient.end();
@@ -92,6 +88,7 @@ int RTMRequest::getErrorCode()
 std::map<String, String> RTMRequest::getNextTagProperties(String tag) {
     std::map<String, String> properties;
     if (xmlScanner.isAtEnd()) return properties;
+    Serial.print("<" + tag + "> ");
     xmlScanner.scanUpToString("<" + tag, true);
     String propertyName, propertyValue;
     do
@@ -99,7 +96,7 @@ std::map<String, String> RTMRequest::getNextTagProperties(String tag) {
         int scanLocation = xmlScanner.scanLocation();
         propertyName = xmlScanner.scanUpToString("=", false); // scan property name
         propertyName.trim();
-        if (propertyName.startsWith(">")) {
+        if (propertyName.indexOf(">") > -1) {
             xmlScanner.setScanLocation(scanLocation); // revert scan location
             break;
         }
@@ -113,7 +110,10 @@ std::map<String, String> RTMRequest::getNextTagProperties(String tag) {
         }
         properties.emplace(propertyName, propertyValue);
 
+        Serial.print(propertyName + "=" + propertyValue + " ");
+
     } while (!xmlScanner.isAtEnd());
+    Serial.print("\n");
     return properties;
 }
 

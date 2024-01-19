@@ -88,7 +88,7 @@ int RTMRequest::getErrorCode()
 std::map<String, String> RTMRequest::getNextTagProperties(String tag) {
     std::map<String, String> properties;
     if (xmlScanner.isAtEnd()) return properties;
-    Serial.print("<" + tag + "> ");
+    // Serial.print("<" + tag + "> ");
     xmlScanner.scanUpToString("<" + tag, true);
     String propertyName, propertyValue;
     do
@@ -110,10 +110,10 @@ std::map<String, String> RTMRequest::getNextTagProperties(String tag) {
         }
         properties.emplace(propertyName, propertyValue);
 
-        Serial.print(propertyName + "=" + propertyValue + " ");
+        // Serial.print(propertyName + "=" + propertyValue + " ");
 
     } while (!xmlScanner.isAtEnd());
-    Serial.print("\n");
+    // Serial.print("\n");
     return properties;
 }
 

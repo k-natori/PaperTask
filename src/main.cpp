@@ -267,6 +267,7 @@ void continueAfterLoginScreen() {
     saveState();
     loginScreen = false;
     delay(1000);
+    canvas.fillCanvas(BLACK);
     displayTasksScreen();
   }
 }

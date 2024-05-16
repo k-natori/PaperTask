@@ -320,6 +320,7 @@ void displayTasksScreen() {
   // Set wake-up timer on next O'clock
   int minutes = minFromHTTPDate(dateString);
   delay(500);
+  M5.RTC.clearIRQ();
   M5.shutdown((60 - minutes) * 60);
 }
 
@@ -352,7 +353,8 @@ void shutdownWithMessage(String message)
   canvas.drawString(message, 8, (rowHeight - fontSize) / 2);
   canvas.pushCanvas(0, 0, UPDATE_MODE_DU4);
   delay(500);
-  M5.shutdown(10 * 60);
+  M5.RTC.clearIRQ();
+  M5.shutdown();
 }
 
 // Convert the date in HTTP response to local timezone
